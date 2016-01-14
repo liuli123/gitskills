@@ -1,0 +1,77 @@
+(function() {
+  var wjtlistV = new Vue({
+    el: "#wjtlist",
+    data: {
+      page: 1,
+      totlePage: 0,
+      totleRow: 0,
+      list: [],
+    },
+    methods: {
+      renderList: function() {
+        $.ajax({
+          url: '/account/comment/_api/list/?page=' + this.page +
+            '&count=3',
+          type: 'GET',
+          dataType: 'json',
+          cache: false,
+          success: function(data) {
+            if (data.status) {
+              wjtlistV.page = data.data.paging.curPage;
+              wjtlistV.totlePage = data.data.paging.totlePage;
+              wjtlistV.totleRow = data.data.paging.totleRow;
+              wjtlistV.list = data.data.data;
+              wjtlistV.renderPaging();
+            }
+          }
+        });
+      },
+      renderPaging: function() {
+        var paginghtml = Paging.render({
+          currentPage: this.page,
+          pageCount: this.totlePage,
+          link: ''
+        });
+        $("#wjtlistpage").empty();
+        $("#wjtlistpage").html(paginghtml);
+      },
+    }
+  });
+  var Tpage = {
+    run: function() {
+      setTimeout(function() {
+        wjtlistV.renderList();
+      }, 0);
+      setTimeout(function() {
+        Tpage.bind();
+      }, 0);
+    },
+    bind: function() {
+      $("#wjtlistpage").on('click',
+        'a.ui-paging-item,a.ui-paging-next,a.ui-paging-prev',
+        function() {
+          $('.ui-paging-current').removeClass('ui-paging-current');
+          $(this).addClass('ui-paging-current');
+          var $this = $(this);
+          wjtlistV.page = $this.attr('href');
+          wjtlistV.renderList();
+          return false;
+        }).on('click', '.ui-paging-goto', function() {
+        var $this = $(this);
+        var $input = $this.prev('.ui-paging-which').find('input');
+        var value = $input.val();
+        value = parseInt(value, 10);
+        if (isNaN(value)) {
+          value = 1;
+        }
+        if (value > wjtlistV.totlePage) {
+          value = wjtlistV.totlePage;
+        }
+        wjtlistV.page = value;
+        wjtlistV.renderList();
+        return false;
+      })
+    }
+  }
+  Tpage.run();
+})();

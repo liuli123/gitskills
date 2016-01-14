@@ -1,0 +1,133 @@
+(function() {
+  var wjtjnfapwierV = new Vue({
+    el:'#wjtjnfapwier',
+    methods:{
+      onSelect:function(event) {
+        var $this = $(event.target);
+        $('.wjtkalsdjfpae').show();
+        $('.wjetjoaisodfhaoier').show();
+        $('.wjtiuwer').hide();
+      },
+      onCenso:function(event) {
+        $('.wjtkalsdjfpae').hide();
+        $('.wjetjoaisodfhaoier').hide();
+        $('.wjtiuwer').show();
+      },
+      onConmi:function(event){
+        $('.wjtkalsdjfpae').hide();
+        $('.wjetjoaisodfhaoier').hide();
+        $('.wjtiuwer').show();
+        var $che = $('.wjtkalsdjfpae:checked');
+        var sts  =  new Array();
+        $che.each(function(index, el) {
+          sts[index] = $(el).val();
+        });
+        var qd = "";
+        for (var i = 0; i < sts.length; i++) {
+          qd=qd+"&id="+sts[i];
+        }
+        $.ajax({
+          url: '/collection/delete/product?d=1'+qd,
+          type: 'POST',
+          dataType: 'json',
+          cache:false,
+        })
+        .done(function(data) {
+          if (data.status){
+            ThisPage.renderReviewList();
+            alert("删除成功");
+          }else if (!data.isLogin){
+            alert("登陆已经失效,请重新登陆");
+          }
+        })
+        .fail(function() {
+          console.log("delete error");
+        });
+
+      },
+      onAllSel:function(event) {
+        $('.wjtkalsdjfpae').trigger('click');
+      }
+    }
+  });
+  var wjtklsdjfweV = new Vue({
+    el:'#wjtklsdjfwe',
+    data:{
+      rList:[],
+      page:1,
+      totle:0,
+    }
+  });
+  var ThisPage = {
+    run:function(){
+      setTimeout(function(){
+        ThisPage.bind();
+      },0);
+      setTimeout(function(){
+        ThisPage.ready();
+      },0);
+    },
+    bind:function(){
+          $("#wjtsfwerks").on('click', 'a.ui-paging-item,a.ui-paging-next,a.ui-paging-prev', function () {
+              $('.ui-paging-current').removeClass('ui-paging-current');
+              $(this).addClass('ui-paging-current');
+              var $this = $(this);
+              wjtklsdjfweV.page = $this.attr('href');
+              ThisPage.renderReviewList();
+              $('html,body').animate({scrollTop: '170%'}, 1000);
+              return false
+          })
+          .on('click', '.ui-paging-goto', function () {
+              var $this = $(this)
+              var $input = $this.prev('.ui-paging-which').find('input')
+              var value = $input.val()
+              // 必须填入数字
+              value = parseInt(value, 10)
+              if (isNaN(value)) {
+                  value = 1
+              }
+              if (value>wjtklsdjfweV.totle){
+                value=wjtklsdjfweV.totle;
+              }
+              wjtklsdjfweV.page=value;
+              ThisPage.renderReviewList();
+              $('html,body').animate({scrollTop: '170%'}, 1000);
+              return false;
+          })
+    },
+    ready:function(){
+      setTimeout(function(){
+        ThisPage.renderReviewList();
+      },0);
+    },
+    renderReviewList:function(){
+      $.ajax({
+        url: '/collection/_api/list/review?page='+wjtklsdjfweV.page,
+        type: 'GET',
+        dataType: 'json',
+        cache:false,
+      })
+      .done(function(data) {
+        if(data.status){
+            wjtklsdjfweV.rList=data.data.reviews;
+            wjtklsdjfweV.page=data.data.paging.curPage;
+            wjtklsdjfweV.totle=data.data.paging.totlePage;
+            ThisPage.renderPaging();
+        }
+      })
+      .fail(function() {
+        console.log("error");
+      });
+    },
+    renderPaging:function() {
+      var paginghtml = Paging.render({
+          currentPage: wjtklsdjfweV.page,
+          pageCount: wjtklsdjfweV.totle,
+          link:''
+      });
+      $("#wjtsfwerks").empty();
+      $("#wjtsfwerks").html(paginghtml);
+    }
+  };
+  ThisPage.run();
+})();

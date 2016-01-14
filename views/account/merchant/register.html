@@ -1,0 +1,117 @@
+<%include('../../common/html/head')%>
+<style media="screen">
+  <%include('./css/register.css')%>
+</style>
+<style media="screen">
+  <%include('./css/zyUpload.css')%>
+</style>
+</head>
+<body>
+<%include('../../common/header')%>
+<div class="uploadlist" id="uploadlist">
+    <h1 style="text-align:center;"></h1>
+    <div id="demo" class="demo">
+        <div class="button" id="close">关闭</div>
+    </div>
+</div>
+<div class="register_logo"><img src="http://img.fastpass.cn/base/logo.png"></div>
+<div class="register">
+  <div class="register_cont">
+    <div style="clear:both"></div>
+    <div class="user_form">
+      <div class="user_form_tit fl">用户名：</div>
+      <div class="user_form_u fr">XXXXXX</div>
+    </div>
+    <div class="user_form">
+      <div class="user_form_tit fl"><span>*</span>提交商家资质：</div>
+      <div class="user_form_content fr">
+        <div class="user_form_content1">
+          <div class="user_form_content1_l fl">方式1：</div>
+          <div class="user_form_content1_r fl">
+            <div class="user_form_content1_r_a">通过淘宝、天猫三方登录认证<a href="#">立即认证</a></div>
+            <div class="tbyh">淘宝用户名&nbsp;:&nbsp;<span>xxxxxx</span></div>
+            <div class="wddz"><span>&nbsp;&nbsp;&nbsp网店地址&nbsp:&nbsp</span>
+              <input type="text" value="">
+            </div>
+          </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="user_form_content1" style="margin-top:20px">
+          <div class="user_form_content1_l fl">方式2：</div>
+          <div class="user_form_content1_r fl" id="upload">
+            <div>资质证件上传
+                 <div class="tbyh">（以下需要上传电子版资质的，仅支持JPG、GIF、PNG格式图片，大小不超过1M。请确保图片清晰。）
+                      <div class="nihao">
+                      </div>
+                 </div>
+            </div>
+            <div class="djscz"><span>*</span><a href="javascript:;" class="wjtserwseroi">点击上传营业执照副本</a>
+              <div class="nihao">
+              </div>
+            </div>
+            <div class="djscz"><span>*</span><a href="#">点击上传法人身份证正反面</a></div>
+            <div class="djscz"><span>&nbsp;</span><a href="#">点击上传品牌公司授权书或商标注册证书</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="user_form">
+    <div class="user_form_tit fl">销售品牌：</div>
+    <div class="user_form_u fr">
+      <ul>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+        <li>
+          <input name="groupCheckbox" type="checkbox" value="" class="input_hide">
+          NIKE/耐克</li>
+      </ul>
+      <div style="clear:both"></div>
+      <div style=" margin-top:10px;" class="tjpp">添加品牌</div>
+  </div>
+  <div class="kcty">
+    <input name="groupCheckbox" type="checkbox" checked="checked" value="" class="input_hide">
+    我已经阅读并同意&nbsp《快传体育商家用户协议》 </div>
+  <div class="kcty_submit"><a href="#" style=" color: #fff;">提交</a></div>
+</div>
+</div>
+<%include('../../common/base')%>
+<script type="text/javascript">
+  <%include('./js/zyUpload.js')%>
+</script>
+<script type="text/javascript">
+  <%include('./js/zyFile.js')%>
+</script>
+<script type="text/javascript">
+  <%include('./js/jq22.js')%>
+</script>
+<script type="text/javascript">
+  <%include('./js/register.js')%>
+</script>
+</body>
+</html>

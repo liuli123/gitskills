@@ -1,0 +1,114 @@
+<%include('../common/html/head')%>
+<style media="screen">
+<%include('../common/css/store/base.css')%>
+.shopRecommend li{ margin-bottom:10px; width:230px; height:190px;box-sizing: border-box;}
+.shopRecommend li img { width:100%; height:auto}
+.shopRecommend li h3{ line-height:30px;}
+.wxgzh_zz{ width:100%; height:100%; position:fixed;top:0px; background:rgba(0,0,0,0.2); z-index:10000; display:none; border:0 }
+.wxgzh_zz .wxgzh_wx{ width:500px; height:317px;position:fixed;top:50%; left:50%; margin-left:-250px; margin-top:-153.5px; background:url(/images/wxgzh_wx.jpg) no-repeat ;z-index:10000;}
+</style>
+<title>我的快传</title>
+</head>
+<body>
+<%include('../common/header')%>
+<%include('../common/navgation')%>
+<div class="auto">
+<div class="content">
+	<%include('../common/account/navgation')%>
+	<!-- 中部 -->
+	<div class="contentmiddle fl">
+		<table class="Table1" border="0">
+		<tbody><tr>
+			<td width="78">
+				<table class="td1" border="0">
+				<tbody><tr style="height:64px; overflow:hidden;">
+					<td style="background-color: white;" ><img src="/images/default/touxiang.jpg" width="64px" height="64px;">
+					</td>
+				</tr>
+				</tbody></table>
+			</td>
+			<td width="180">
+				<span class="font4"><%if (user&&user.name){%><%=user.name%><%}%></span>
+			</td>
+			<td width="120">
+				<a href="/account/information">基础信息</a>
+			</td>
+			<td width="120">
+				<a href="/account/safety">安全服务</a>
+			</td>
+			<td width="120">
+				<a href="/account/data">个人资料</a>
+			</td>
+		</tr>
+		</tbody></table>
+		<!--   <table class="Table2">
+		<tr>
+			<td align="center">
+				<span class="font4">待付款 </span><span class="font6">7</span>
+			</td>
+			<td align="center">
+				<span class="font4">待发货 </span><span class="font6">7</span>
+			</td>
+			<td align="center">
+				<span class="font4">待收货 </span><span class="font6">7</span>
+			</td>
+			<td align="center">
+				<span class="font4">待评价</span><span class="font6">7</span>
+			</td>
+			<td align="center">
+				<span class="font4">退款</span>
+			</td>
+		</tr>
+		</table>
+-->
+		<div class="contentmiddle3">
+			猜你喜欢
+		</div>
+		<%for (var i = 0; i < products.length; i++) {%>
+      <a href="/product/<%=products[i].id%>" target="_blank">
+      <div class="contentmiddle4 fl">
+  			<div class="contentmiddletu">
+  				<img src="<%=products[i].image+'?'%>"  onerror='this.src="/images/default/product<%=products[i].cid%>.jpg"' height="225" width="225">
+  			</div>
+  			<div class="contentmiddlefont">
+  				<span class="font22 fontgrey">牌价:</span><span class="font22 fontorange">￥<%=products[i].listPrice%></span><br>
+                                    <h3 style="height:40px; overflow:hidden"><%=products[i].name%></h3>
+                    <p></span><%=products[i].pid%>  　　<%=products[i].relaseDate%></p>
+  			</div>
+  		</div>
+      </a>
+		<%}%>
+	</div>
+<!-- 右部 -->
+	<div class="contentright fr">
+		<div class="contentright1 riqi" align="center">
+
+	</div>
+        <div class="rightSidebar"  style=" margin:20px auto 0px">
+          <div class="shopRecommend" >
+              <ul>
+                  <%for (var i = 0; i < recommed.stores.length; i++) {%>
+                  <li>
+                      <a target="_blank" href="/store/<%=recommed.stores[i].id%>"><img src='<%=recommed.stores[i].img +"?"%>' onerror='this.src="/images/default/store.jpg"'></a>
+                      <h3><%=recommed.stores[i].name%></h3>
+                      <p><%=recommed.stores[i].category%></p>
+                  </li>
+                  <%}%>
+              </ul>
+          </div>
+      </div>
+	</div>
+
+</div>
+</div>
+
+<%include('../common/footer-search')%>
+<%include('../common/footer')%>
+<%include('../common/base')%>
+<script type="text/javascript">
+	<%include('../common/js/common/lunarCalendar.min.js')%>
+</script>
+
+
+</body>
+</html>

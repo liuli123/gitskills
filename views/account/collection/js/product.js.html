@@ -1,0 +1,130 @@
+(function(){
+  var _page = 1;
+  var _totlepage=0;
+  var wjtjnfapwierV = new Vue({
+    el:'#wjtjnfapwier',
+    methods:{
+      onSelect:function(event) {
+        var $this = $(event.target);
+        $('.wjtkalsdjfpae').show();
+        $('.wjetjoaisodfhaoier').show();
+        $('.wjtiuwer').hide();
+      },
+      onCenso:function(event) {
+        $('.wjtkalsdjfpae').hide();
+        $('.wjetjoaisodfhaoier').hide();
+        $('.wjtiuwer').show();
+      },
+      onConmi:function(event){
+        $('.wjtkalsdjfpae').hide();
+        $('.wjetjoaisodfhaoier').hide();
+        $('.wjtiuwer').show();
+        var $che = $('.wjtaoiapiuehr:checked');
+        var sts  =  new Array();
+        $che.each(function(index, el) {
+          sts[index] = $(el).val();
+        });
+        var qd = "";
+        for (var i = 0; i < sts.length; i++) {
+          qd=qd+"&id="+sts[i];
+        }
+        $.ajax({
+          url: '/collection/delete/product?d=1'+qd,
+          type: 'POST',
+          dataType: 'json',
+          cache:false,
+        })
+        .done(function(data) {
+          if (data.status){
+            ThisPage.renderProductList();
+            alert("删除成功");
+          }else if (!data.isLogin){
+            alert("登陆已经失效,请重新登陆");
+          }
+        })
+        .fail(function() {
+          console.log("delete error");
+        });
+
+      },
+      onAllSel:function(event) {
+        $('.wjtaoiapiuehr').trigger('click');
+      }
+    }
+  });
+  var wjtfeiwosdV = new Vue({
+    el:'#wjtfeiwosd',
+    data:{
+      proList:[]
+    }
+  });
+  var ThisPage = {
+    run:function(){
+      ThisPage.ready();
+      ThisPage.bind();
+    },
+    bind:function(){
+      $("#wjtdpwepa").on('click', 'a.ui-paging-item,a.ui-paging-next,a.ui-paging-prev', function () {
+          $('.ui-paging-current').removeClass('ui-paging-current');
+          $(this).addClass('ui-paging-current');
+          var $this = $(this);
+          _page = $this.attr('href');
+          ThisPage.renderProductList();
+          $('html,body').animate({scrollTop: '170%'}, 1000);
+          return false
+      })
+      .on('click', '.ui-paging-goto', function () {
+          var $this = $(this)
+          var $input = $this.prev('.ui-paging-which').find('input')
+          var value = $input.val()
+          // 必须填入数字
+          value = parseInt(value, 10)
+          if (isNaN(value)) {
+              value = 1
+          }
+          if (value>_totlepage){
+            _page=_totlepage;
+          }
+          ThisPage.renderProductList();
+          $('html,body').animate({scrollTop: '170%'}, 1000);
+          return false;
+      })
+    },
+    ready:function() {
+      ThisPage.renderProductList();
+    },
+    renderProductList:function() {
+      $.ajax({
+        url: '/collection/_api/list/product?page='+_page,
+        type: 'GET',
+        dataType: 'json',
+        cache:false,
+      })
+      .done(function(data) {
+        if (data.status){
+          wjtfeiwosdV.proList = data.data.products;
+          _page=data.data.paging.curPage;
+          _totlepage=data.data.paging.totlePage;
+          ThisPage.renderPaging();
+        } else if (!data.isLogin){
+
+        }else {
+
+        }
+      })
+      .fail(function(e) {
+        console.log(e);
+      });
+    },
+    renderPaging:function() {
+      var paginghtml = Paging.render({
+          currentPage: _page,
+          pageCount: _totlepage,
+          link:''
+      });
+      $("#wjtdpwepa").empty();
+      $("#wjtdpwepa").html(paginghtml);
+    }
+  };
+  ThisPage.run();
+})();

@@ -1,0 +1,42 @@
+<style>
+.bottom1{ width:100%; z-index:10100}
+.bottom1 a{ color:#fff}
+.bottom1 a:hover{ color:#ec7d6c}
+</style>
+<script>
+$(function(){
+
+	var Hi=$(".bottom1").offset().top;
+	var wh = $(document.body).height();
+
+if(Hi<wh){
+		$(".bottom1").css({"position":"fixed","bottom":"0"})
+	}else{
+		$(".bottom1").css({"position":"static","bottom":"none"})
+						}
+
+$(window).resize(function () {
+
+var Hi=$(".bottom1").offset().top;
+	var wh = $(document.body).height();
+
+if(Hi<wh){
+		$(".bottom1").css({"position":"fixed","bottom":"0"})
+	}else{
+		$(".bottom1").css({"position":"static","bottom":"none"})
+						}
+	});
+	
+
+	
+	
+	
+	})
+	
+
+
+</script>
+
+<div class="bottom1" align="center">
+	<a href="/us/about">关于我们</a> | <a href="/us/contact">联系我们</a> | <a href="/us/joinus">人才招聘</a> | <a href="/us/statement">收录说明</a> <!--| 广告服务 | 隐私声明和 Cookie--> | Copyright©2016快传体育fastpass.cn 版权所有 | 京ICP备15039011号
+</div>

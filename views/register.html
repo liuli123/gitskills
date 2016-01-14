@@ -1,0 +1,73 @@
+<%include('./common/html/head')%>
+    <style media="screen">
+	 <%include('./common/css/register.css')%>
+    </style>
+  </head>
+  <body>
+  <%include('./common/header')%>
+<div class="register_logo"><img src="http://img.fastpass.cn/base/logo.png"></div>
+<div class="register">
+	<div class="register_cont" style="display:block">
+		<div class="register_form">
+		<ul>
+			<li>
+				<div class="left"><em>*</em>用户名</div>
+				<div class="right userName" id="userName"><input type="text" class="_username" /></div>
+				<div class="temp">4-20位字符，支持汉字、字母、数字及"-""_"组合</div>
+				<div class="register_error username_error"></div>
+			</li>
+			<li>
+				<div class="left"><em>*</em>请设置密码</div>
+				<div class="right passWord" id="passWord"><input type="password" class="_passwd1"/></div>
+				<div class="temp">6-20位字符，建议由字母、数字、符号两种以上组合</div>
+				<div class="psd_grade">密码安全程度<span class="orange" id="_pwd_q_0">弱</span><span class="gray" id="_pwd_q_1">中</span><span class="gray" id="_pwd_q_2">强</span></div>
+				<div class="register_error password_error"></div>
+			</li>
+			<li>
+				<div class="left"><em>*</em>请确认密码</div>
+				<div class="right passWord1" id="passWord1"><input type="password" class="_passwd2"/></div>
+				<div class="temp">请再次输入密码</div>
+				<div class="register_error password_error1"></div>
+			</li>
+			<li>
+				<div class="left"><em>*</em>验证手机</div>
+				<div class="right telePhone" id="phone"><input type="text" class="_phone"/></div>
+				<div class="temp">完成验证后可以使用该手机号登陆和找回密码</div>
+				<div class="register_error tel_error"></div>
+			</li>
+			<li>
+				<div class="left"><em>*</em>验证码</div>
+				<div class="right" style="width:130px" id="veri"><input type="text" style="width:120px;" class="_veri"/></div>
+				<span class="yanzhengma"><img class="_yzmimg" data-img-host="<%=captch.imgHost%>" data-code="<%=captch.code%>" src="<%=captch.imgHost%><%=captch.code%>" style="cursor: pointer;"   /></span>
+				<div class="temp">请填写图形验证码</div>
+				<div class="register_error code_error"></div>
+			</li>
+
+			<li>
+				<div class="left"><em>*</em>短信验证码</div>
+				<div class="right" style="width:130px" id="captch"><input type="text" style="width:120px" class="_captch" /></div>
+				<div class="getMessageCode wjtwerweoisdf"><a href="javascript:;" class="_sendPhone" >获取手机验证码</a></div>
+			</li>
+
+		<li>
+		<div class="igree"><input class="_agree" id="agree" name="" type="checkbox" value="" checked=checked style="display:none"/>
+
+		<img src="/images/htm/checkBox2.png" style="width:12px" id="checkBox2"><img src="/images/htm/checkBox1.png" style="width:12px;display:none" id="checkBox1"> 我已阅读并同意 <a href="#" class="blue">《快传用户注册协议》</a></div>
+    </li>
+    <li>
+		<div class="register_button"><input type="button" value="立即注册" class="button _register"></div>
+    </li>
+    </ul>
+		</div>
+
+	</div>
+</div>
+<%include('./common/footer')%>
+<%include('./common/base')%>
+<script type="text/javascript">
+  <%include('./common/js/common/util/pwdUtil.js')%>
+</script>
+<script type="text/javascript">
+  <%include('./common/js/web/register.js')%>
+</script>
+</body>

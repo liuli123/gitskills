@@ -1,0 +1,326 @@
+<%include('../common/html/head')%>
+<title>确认订单-北京北京</title>
+<style>
+/*<%include('../common/css/review/base.css')%>*/
+<%include('../common/css/confirm.css')%>
+</style>
+<script>
+	<%include('../common/js/web/good/menu2.js')%>
+</script>
+</head>
+<body>
+<!--弹出框-->
+<div  id="Popupbox">
+	<ul>
+    	 <li>
+        	<input class="close" type="button" value="x"/>
+        </li>
+    	<li class="clearfix">
+        	<p class="fl">所在地区</p>
+            <div class="fl">
+            	<select>
+                </select>
+                <select>
+                </select>
+                <select>
+                </select>
+            </div>
+        </li>
+        <li class="clearfix">
+        	<p class="fl">详细地址</p>
+            <div class="fl">
+            	<input type="text"/>
+            </div>
+        </li>
+         <li class="clearfix">
+        	<p class="fl" >收货人姓名</p>
+            <div class="fl">
+            	<input type="text"/>
+            </div>
+        </li>
+         <li class="clearfix">
+        	<p class="fl">联系电话</p>
+            <div class="fl">
+            	<input type="text"/>
+            </div>
+        </li>
+        <li>
+        	<input class="button" type="button" value="确认"/>
+        </li>
+    </ul>
+</div>
+
+<!-- 导航-->
+<%include('../common/header')%>
+<!-- 悬浮导航结束-->
+<div id="header">
+	<div class="uinfo_wrap">
+		<div class="logo fl">
+		</div>
+		<div class="dg-right1">
+				确认订单
+		</div>
+	</div>
+</div>
+<div class="auto">
+<div class="qrdd-cont">
+	<div class="qrdd-cont1">
+	<b>确认订单</b>  <span>>>></span>   付款到快传   <span>>>></span>   商家发货   <span>>>></span>  确认收货</div>
+	<div class="kong"></div>
+	<div class="qrdd-cont2">
+	<span class="fl">确认收货地址</span>
+	<span class="fr"><a href="#">管理收货地址</a></span>
+	</div>
+	<div class="qrdd-cont3">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="88">
+			邮寄至
+			</td>
+			<td>
+				<div  id="qrdd-cont3">
+						<li>
+						<input type="radio" name="address" />
+						<span class="qrdz addColor">北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+						<a href="#" class="yc-modify" style="display:block">修改地址</a></li>
+						<li>
+						<input type="radio" name="address"/>
+						<span class="qrdz">北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+						<a href="#" class="yc-modify">修改地址</a></li>
+						<li>
+						<input type="radio" name="address"/>
+						<span class="qrdz">北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+						<a href="#" class="yc-modify">修改地址</a></li>
+						<li>
+						<input type="radio" name="address"/>
+						<span class="qrdz">北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+						<a href="#" class="yc-modify">修改地址</a></li>
+						<li>
+						<input type="radio" name="address"/>
+						<span class="qrdz">北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+						<a href="#" class="yc-modify">修改地址</a></li>
+
+						<div id="address" style="display:none;">
+								<li>
+								<input type="radio" name="address"/>
+								<span class="qrdz">1北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+								<a href="#" class="yc-modify">修改地址</a></li>
+								<li>
+								<input type="radio" name="address"/>
+								<span class="qrdz">2北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+								<a href="#" class="yc-modify">修改地址</a></li>
+								<li>
+								<input type="radio" name="address"/>
+								<span class="qrdz">3北京市朝阳区 百子湾百子园 9号楼底商 107   苏先生 收     18611655026</span>
+								<a href="#" class="yc-modify">修改地址</a></li>
+						</div>
+		</div>
+
+			<a onclick="openShutManager(this,'address',false,'收起地址','更多收货地址')" style="font-size:14px;padding:3px 0;margin-top:5px;float:left;">更多收货地址</a>
+			</td>
+		</tr>
+	</table>
+	</div>
+
+	<div class="qrdd-cont2">
+	<span class="fl">确定订单信息</span>
+	</div>
+	<div class="qrdd-cont4">
+	<table width="100%" cellpadding="0" cellspacing="0">
+		<tr class="qrdd-tr1">
+			<td colspan="2">商品</td><td width="123">单价(元)</td><td width="140">数量</td>
+			<td width="110">小计(元)</td><td width="205">选择快递</td><td>支付合计</td>
+		</tr>
+		<tr>
+		<td width="110"><a href="#"><img src="images/pj_pic1.jpg" class="qrdd-img2" alt="" width="82" height="82"/></a></td>
+			<td width="250" style="text-align:left;padding-left:30px;">Nike Air Jordan 7 Bordeaux AJ...<br/>
+304775-034        42.5</td>
+			<td>102.00 </td>
+			<td><div class="i_box"><a href="javascript:;" class="J_minus">-</a><input type="text" value="0" class="J_input" /><a href="javascript:;" class="J_add">+</a></div></td>
+			<td>204.00</td>
+			<td>
+			<select name="" id="" class="qrdd-kd1">
+				<option value="">顺丰航空寄付</option>
+				<option value="">顺丰航空到付</option>
+				<option value="">顺丰陆运寄付</option>
+				<option value="">顺丰陆运到付</option>
+				<option value="">中通快递</option>
+				<option value="">圆通快递</option>
+				<option value="">申通快递</option>
+				<option value="">韵达快递</option>
+				<option value="">德邦物流</option>
+				<option value="">德邦快递</option>
+			</select>
+			23</td>
+			<td>1505.00</td>
+		</tr>
+		<tr>
+		<td></td>
+		<td colspan="6" style="text-align:left;padding-bottom:30px;padding-left:30px;">给卖家留言：<input type="text" class="qrdd-mess"/></td>
+		</tr>
+	</table>
+	</div>
+
+	<div class="qrdd-cont5">
+	<table>
+		<tr>
+			<td width="340">实付款：  1505.00(含快递费6元)</td>
+			<td>邮寄至： 北京市 朝阳区 双井街道 百子湾路16号 百子园5号楼B座1405 000000</td>
+		</tr>
+		<tr><td></td><td align="left">收货人： 苏先生18611655026</td></tr>
+	</table>
+	 <input type="button" value="提交订单" class="qrdd-btn2"/>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+function openShutManager(oSourceObj,oTargetObj,shutAble,oOpenTip,oShutTip){
+var sourceObj = typeof oSourceObj == "string" ? document.getElementById(oSourceObj) : oSourceObj;
+var targetObj = typeof oTargetObj == "string" ? document.getElementById(oTargetObj) : oTargetObj;
+var openTip = oOpenTip || "";
+var shutTip = oShutTip || "";
+if(targetObj.style.display!="none"){
+   if(shutAble) return;
+   targetObj.style.display="none";
+   if(openTip  &&  shutTip){
+    sourceObj.innerHTML = shutTip;
+   }
+} else {
+   targetObj.style.display="block";
+   if(openTip  &&  shutTip){
+    sourceObj.innerHTML = openTip;
+   }
+}
+}
+</script>
+<script>
+$(function(){
+	$('#qrdd-cont3 span').click(function(){
+		$('#qrdd-cont3 span').removeClass('addColor');
+		$(this).addClass('addColor');
+		$('#qrdd-cont3 a').css('display','none');
+		$('#qrdd-cont3 a').eq($(this).index()).css('display','block');
+	})
+})
+$(function(){
+	$('#qrdd-cont3 a').click(function(){
+		$('#Popupbox').css('display','block');
+		$('body').css('background','gray')
+	})
+})
+$(function(){
+	$('#Popupbox .close').click(function(){
+		$('#Popupbox').css('display','none');
+		$('body').css('background','#fff')
+	})
+})
+</script>
+<script>
+$.fn.iVaryVal=function(iSet,CallBack){
+	/*
+	 * Minus:点击元素--减小
+	 * Add:点击元素--增加
+	 * Input:表单元素
+	 * Min:表单的最小值，非负整数
+	 * Max:表单的最大值，正整数
+	 */
+	iSet=$.extend({Minus:$('.J_minus'),Add:$('.J_add'),Input:$('.J_input'),Min:0,Max:20},iSet);
+	var C=null,O=null;
+	//插件返回值
+	var $CB={};
+	//增加
+	iSet.Add.each(function(i){
+		$(this).click(function(){
+			O=parseInt(iSet.Input.eq(i).val());
+			(O+1<=iSet.Max) || (iSet.Max==null) ? iSet.Input.eq(i).val(O+1) : iSet.Input.eq(i).val(iSet.Max);
+			//输出当前改变后的值
+			$CB.val=iSet.Input.eq(i).val();
+			$CB.index=i;
+			//回调函数
+			if (typeof CallBack == 'function') {
+                CallBack($CB.val,$CB.index);
+            }
+		});
+	});
+	//减少
+	iSet.Minus.each(function(i){
+		$(this).click(function(){
+			O=parseInt(iSet.Input.eq(i).val());
+			O-1<iSet.Min ? iSet.Input.eq(i).val(iSet.Min) : iSet.Input.eq(i).val(O-1);
+			$CB.val=iSet.Input.eq(i).val();
+			$CB.index=i;
+			//回调函数
+			if (typeof CallBack == 'function') {
+				CallBack($CB.val,$CB.index);
+		  	}
+		});
+	});
+	//手动
+	iSet.Input.bind({
+		'click':function(){
+			O=parseInt($(this).val());
+			$(this).select();
+		},
+		'keyup':function(e){
+			if($(this).val()!=''){
+				C=parseInt($(this).val());
+				//非负整数判断
+				if(/^[1-9]\d*|0$/.test(C)){
+					$(this).val(C);
+					O=C;
+				}else{
+					$(this).val(O);
+				}
+			}
+			//键盘控制：上右--加，下左--减
+			if(e.keyCode==38 || e.keyCode==39){
+				iSet.Add.eq(iSet.Input.index(this)).click();
+			}
+			if(e.keyCode==37 || e.keyCode==40){
+				iSet.Minus.eq(iSet.Input.index(this)).click();
+			}
+			//输出当前改变后的值
+			$CB.val=$(this).val();
+			$CB.index=iSet.Input.index(this);
+			//回调函数
+			if (typeof CallBack == 'function') {
+                CallBack($CB.val,$CB.index);
+            }
+		},
+		'blur':function(){
+			$(this).trigger('keyup');
+			if($(this).val()==''){
+				$(this).val(O);
+			}
+			//判断输入值是否超出最大最小值
+			if(iSet.Max){
+				if(O>iSet.Max){
+					$(this).val(iSet.Max);
+				}
+			}
+			if(O<iSet.Min){
+				$(this).val(iSet.Min);
+			}
+			//输出当前改变后的值
+			$CB.val=$(this).val();
+			$CB.index=iSet.Input.index(this);
+			//回调函数
+			if (typeof CallBack == 'function') {
+                CallBack($CB.val,$CB.index);
+            }
+		}
+	});
+}
+//调用
+$( function() {
+
+	$('.i_box').iVaryVal({},function(value,index){
+		$('.i_tips').html('你点击的表单索引是：'+index+'；改变后的表单值是：'+value);
+	});
+
+});
+</script>
+<%include('../common/footer')%>
+</body>
+</html>

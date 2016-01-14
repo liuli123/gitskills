@@ -1,0 +1,274 @@
+(function($, undefined) {
+    $(".register_tab li").on("click", function() {
+        $(this).addClass("on").siblings().removeClass("on");
+        $(".register_cont").hide().eq($('.register_tab li').index(this)).show();
+    })
+    $(".register_form input").focus(function() {
+        $(this).parents(".right").addClass("on");
+        $(this).parents(".right").siblings(".register_error").hide();
+        $(this).parents(".right").siblings(".temp").show();
+    })
+    $(".register_form input").blur(function() {
+        $(this).parents(".right").removeClass("on");
+        $(this).parents(".right").siblings(".temp").hide();
+    })
+
+	$("#checkBox2").on("click",function(){
+		$(this).hide();
+		$("#checkBox1").show();
+		$("#agree").attr("checked","");
+	})
+	$("#checkBox1").on("click",function(){
+		$(this).hide();
+		$("#checkBox2").show();
+		$("#agree").attr("checked","checked");
+	})
+    var $userNameIpt = $("._username");
+    var $passwd1Ipt = $("._passwd1");
+    var $passwd2Ipt = $("._passwd2");
+    var $phoneIpt = $("._phone");
+    var $sendPhoneBtn = $("._sendPhone");
+    var $captchIpt = $("._captch");
+    var $agreeIpt = $("._agree");
+    var $registerIpt = $("._register");
+    var $veriIpt = $("._veri");
+    var $canSendPhoneBtn = true;
+    var $sendPhoneBtnDJS = 60;
+    var $yzmImg = $("._yzmimg");
+    var ThisPage = {
+        run: function() {
+            ThisPage.bind();
+        },
+        bind: function() {
+            $sendPhoneBtn.on('click', function(event) {
+                event.preventDefault();
+                ThisPage.sendPhoneVerify();
+                return false;
+            });
+            $registerIpt.on('click', function(event) {
+                event.preventDefault();
+                if (ThisPage.validataForm()) {
+                    ThisPage.register_error();
+                }
+                return false;
+            });
+            $yzmImg.on('click', function(event) {
+                event.preventDefault();
+                var code = Math.floor(Math.random() * (10000 + 1));
+                $(this).attr("data-code", code);
+                $(this).attr("src", $(this).attr('data-img-host') + $(this).attr('data-code'));
+                return false;
+            });
+            $userNameIpt.on('blur', function(event) {
+                event.preventDefault();
+                ThisPage.validataUserNameIpt();
+                return false;
+            });
+            $passwd1Ipt.on('blur', function(event) {
+                event.preventDefault();
+                ThisPage.validatePasswd1Ipt();
+                return false;
+            });
+            $passwd2Ipt.on('blur', function(event) {
+                event.preventDefault();
+                ThisPage.validatePasswd2Ipt();
+                return false;
+            });
+            $phoneIpt.on('blur', function(event) {
+                event.preventDefault();
+                ThisPage.validataPhoneIpt();
+                return false;
+            });
+            $veriIpt.on('blur', function(event) {
+                event.preventDefault();
+                ThisPage.validatAveriIpt();
+                return false;
+            });
+        },
+        validataForm: function() {
+            return ThisPage.validataUserNameIpt() && ThisPage.validatePasswd2Ipt() && ThisPage.validataPhoneIpt() && ThisPage.validatePasswd1Ipt() && ThisPage.validatAveriIpt();
+        },
+        validatAveriIpt: function() {
+            var check = true;
+            if ($veriIpt.val() != $yzmImg.attr("data-code")) {
+                $(".code_error").show();
+                $(".code_error").text("验证码不正确");
+                $("#veri").css("borderColor","red")
+                check = false;
+            }else{
+            	$("#veri").css("borderColor","#f1f1f1")
+            }
+            return check;
+        },
+        validataPhoneIpt: function() {
+            var check = true;
+            if (!/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test($phoneIpt.val())) {
+                $(".tel_error").show();
+                $(".tel_error").text("手机号码格式有误，请输入正确的手机号码");
+                $("#phone").css("borderColor","red")
+                $(".telePhone").removeClass("success");
+                check = false;
+            } else if ($phoneIpt.val() != "") {
+                $(".telePhone").addClass("success");
+                $("#phone").css("borderColor","#f1f1f1")
+            }
+            return check;
+        },
+        validataPasswdStrong: function() {
+            var S_level = checkStrong($passwd1Ipt.val());
+            switch (S_level) {
+                case 3:
+                    $("#_pwd_q_2").removeClass('gray').addClass('orange');
+                case 2:
+                    $("#_pwd_q_1").removeClass('gray').addClass('orange');
+                case 1:
+                    $("#_pwd_q_0").removeClass('gray').addClass('orange');
+                    break;
+                case 0:
+                default:
+                    $("#_pwd_q_0").removeClass('orange').addClass('gray');
+                    $("#_pwd_q_2").removeClass('orange').addClass('gray');
+                    $("#_pwd_q_1").removeClass('orange').addClass('gray');
+                    $(".password_error").show();
+                    $(".password_error").text("该密码比较简单，有被盗风险，请您更改为复杂密码")
+                    $(".passWord").removeClass("success");
+            }
+        },
+        validatePasswd2Ipt: function() {
+            var check = true;
+            var pwd = $passwd1Ipt.val();
+            if (($passwd1Ipt.val() != $passwd2Ipt.val())&&(pwd==null||pwd.length<=5||pwd.length>=21)) {
+                $(".password_error1").show();
+                $(".password_error1").text("两次密码不一样");
+                $("#passWord1").css("borderColor","red");
+                $(".passWord1").removeClass("success");
+                check = false;
+            } else if ($passwd2Ipt.val() != "") {
+                $(".passWord1").addClass("success");
+                $("#passWord1").css("borderColor","#f1f1f1");
+            }
+            return check;
+        },
+        validatePasswd1Ipt: function() {
+            var pwd = $passwd1Ipt.val();
+            var check = true;
+            if (pwd==null||pwd.length<=5||pwd.length>=21) {
+                $(".password_error").show();
+                $(".password_error").text("密码长度只能在6-20位字符之间");
+                $("#passWord").css("borderColor","red")
+                $(".passWord").removeClass("success");
+                check = false;
+            } else {
+                $(".passWord").addClass("success");
+                ThisPage.validataPasswdStrong();
+                $("#passWord").css("borderColor","#f1f1f1")
+            }
+            return check;
+        },
+        validataUserNameIpt: function() {
+            var usn = $userNameIpt.val();
+            var result = true;
+            if (usn==null||usn.length >= 21 || usn.length < 2) {
+                $(".username_error").show();
+                $(".username_error").text("用户名长度只能在6-20位字符之间");
+                $("#userName").css("borderColor","red")
+                $(".userName").removeClass("success");
+            } else if (!isNaN(usn)) {
+                $(".username_error").show();
+                $(".username_error").text("用户名不能是纯数字，请重新输入");
+                $("#userName").css("borderColor","red")
+                $(".userName").removeClass("success");
+            } else if (!/^[a-zA-Z0-9\u4e00-\u9fa5][a-zA-Z0-9_\u4E00-\u9FA5]{1,25}$/.test(usn)) {
+                $(".username_error").show();
+                $(".username_error").text("用户名格式不正确");
+                $(".userName").removeClass("success");
+                result = false;
+            } else if (!FP_OBJ.METHOD.WORD_CAN_USE(usn)) {
+              $(".username_error").show();
+              $(".username_error").text("用户名包含禁用词汇");
+              $(".userName").removeClass("success");
+            }else{
+              $(".userName").addClass("success");
+              $("#userName").css("borderColor","#f1f1f1")
+            }
+            return result;
+        },
+        register: function() {
+            $.post('/register/_api/doregister', {
+                username: $userNameIpt.val(),
+                phone: $phoneIpt.val(),
+                password: $passwd1Ipt.val(),
+                verify: $captchIpt.val(),
+                cache:false,
+            }, function(data, textStatus, xhr) {
+                if (textStatus == "success") {
+                    if (!data.status) {
+                        alert(data.msg);
+                    } else {
+                        alert("注册成功");
+                        window.location.href="/";
+                    }
+                } else {
+                    alert("服务器异常");
+                }
+            });
+        },
+        sockSendPhoneBtn: function() {
+            $canSendPhoneBtn = false;
+        },
+        unsockSendPhoneBtn: function() {
+            $canSendPhoneBtn = true;
+        },
+        sendPhoneVerify: function() {
+            $.ajax({
+                url: '/register/_api/sendPhoneVerify',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    phone: $phoneIpt.val()
+                },
+                cache:false,
+            }).fail(function() {
+                ThisPage.unsockSendPhoneBtn();
+            }).always(function(data) {
+                if (!data.status) {
+                    alert(data.msg);
+                } else {
+                    ThisPage.sendPhoneVerifySuccess();
+                }
+            });
+        },
+        sendPhoneVerifySuccess: function() {
+            ThisPage.sockSendPhoneBtn();
+            ThisPage.sendPhoneBtnCountdown($sendPhoneBtnDJS, $sendPhoneBtn);
+            alert("发送成功!");
+        },
+        sendPhoneBtnCountdown: function(second, button) {
+            if (second > 0) {
+                setTimeout(1000, function() {
+                    alert(second);
+                    ThisPage.sendPhoneBtnCountdown(second - 1, button);
+                });
+            } else {
+                ThisPage.unsockSendPhoneBtn();
+            }
+        }
+    }
+    ThisPage.run();
+})(jQuery);
+window.onload = function() {
+	$(window).resize(function() {
+		var h1 = $(document).height();
+		var h2 = $(window).height();
+		if (h1 > h2) {
+			$(".footer_htm").css({
+				"position": "static",
+				"margin-bottom": "0"
+			})
+		} else {
+			$(".footer_htm").css({
+				"position": "absolute"
+			})
+		}
+	})
+}

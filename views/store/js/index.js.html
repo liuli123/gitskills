@@ -1,0 +1,257 @@
+(function	($,undefined) {
+	var _query = "<%=search%>";
+  var page= 1;
+  var pages = 0;
+	var order = "sort:asc/name:asc";
+  var wjtorderlistV= new Vue({
+    el:"#wjtorderlist",
+    methods:{
+      changeX:function(event){
+        $('#wjtorderlist').children('a').children('li').removeClass('current');
+        $(event.target).addClass('current');
+        $('#wjtorderlist').children('a').children('li').empty();
+        $('#wjtorderlist').children('a').children('li').each(function(index, el) {
+            $(el).html($(el).attr("data-str"));
+        });
+      },
+      orderChange:function(event){
+        this.changeX(event);
+        order = $(event.target).attr('data-order');
+        ThisPage.reloadSearchKeyAndList();
+      },
+      orderChangeF:function(event) {
+        $this = $(event.target);
+        this.changeX(event);
+        if ($this.attr('data-ve')==='asc'){
+          order=$this.attr('data-order')+':asc';
+          $this.html($this.attr('data-str')+"从低到高");
+          $this.attr('data-ve','desc');
+        }else {
+          order=$this.attr('data-order')+':desc';
+          $this.html($this.attr('data-str')+"从高到低");
+          $this.attr('data-ve','asc');
+        }
+        ThisPage.reloadSearchKeyAndList();
+      }
+    }
+  });
+	var wjtlkfoiweirV = new Vue({
+    el:"#wjtlkfoiweir",
+    data:{
+      slectedStr:"",
+      totleRow:0
+    },
+    computed:{
+      slectedList : function() {
+        var result = [];
+        var index=0;
+        for (var i = 0; i < this.slectedStr.split("~~~~~~~~~~").length; i++) {
+          if (this.slectedStr.split("~~~~~~~~~~")[i].indexOf("~~~~~")!=-1){
+            result[index]={
+              type:this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[0],
+              name:this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[1],
+              exclude:this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[2],
+              selet:this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[3],
+              feiose:this.slectedStr.split("~~~~~~~~~~")[i],
+            }
+            index++;
+          }
+        }
+        return result;
+      }
+    },
+    methods:{
+      addSlect:function(str) {
+        this.slectedStr = this.slectedStr+"~~~~~~~~~~"+str;
+      },
+      delSlect:function(event) {
+        this.slectedStr=this.slectedStr.replace($(event.target).attr('data-str'),'');
+        if($(event.target).attr('data-type')=="query"){
+          _query="";
+        }
+        ThisPage.reloadSearchKeyAndList();
+      },
+      getSlectKeys:function() {
+        var result = [];
+        var index = 0;
+        for (var i = 0; i < this.slectedStr.split("~~~~~~~~~~").length; i++) {
+          if (this.slectedStr.split("~~~~~~~~~~")[i].indexOf("~~~~~")!=-1 &&this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[0] == "key"){
+            result[index]=this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[3];
+            index++;
+          }
+        }
+        return result;
+      },
+      getExcludeKeys:function() {
+        var result = [];
+        var index = 0;
+        for (var i = 0; i < this.slectedStr.split("~~~~~~~~~~").length; i++) {
+          if (this.slectedStr.split("~~~~~~~~~~")[i].indexOf("~~~~~")!=-1 &&this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[0] == "key"){
+            result[index]=this.slectedStr.split("~~~~~~~~~~")[i].split("~~~~~")[2];
+            index++;
+          }
+        }
+        return result;
+      }
+    }
+  });
+	var wjtsearchkeyV = new Vue({
+		el:"#wjtsearchkey",
+		data:{
+			skeys:[]
+		},
+		methods:{
+			moreKeyBtn:function(event){
+				var $el = $(event.target);
+				$('.wjtdiofwjeoir'+$el.attr('data-name')+':checked').each(function(index, el) {
+					wjtlkfoiweirV.addSlect("key~~~~~"+$(el).parent().attr('data-name')+"~~~~~"+$(el).parent().attr('data-exclude')+"~~~~~"+$(el).parent().attr('data-selet'));
+					if (index==$('.wjtdiofwjeoir'+$el.attr('data-name')+':checked').length-1){
+						ThisPage.reloadSearchKeyAndList();
+					}
+				});
+				$('.btnCancel').trigger('click');
+			},
+	      oneKeyBtn:function(event) {
+	        var $el = $(event.target);
+	        if ($('.wjtdiofwjeoir'+$el.attr('data-fewsd')).is(":hidden")){
+	          wjtlkfoiweirV.addSlect("key~~~~~"+$el.attr('data-name')+"~~~~~"+$el.attr('data-exclude')+"~~~~~"+$el.attr('data-selet'));
+	          ThisPage.reloadSearchKeyAndList();
+	        }else{
+	          $el.children('input').trigger('click');
+	        }
+	      }
+
+		}
+	});
+	if (_query!=undefined&&_query.length>0){
+		wjtlkfoiweirV.slectedStr = "query~~~~~"+_query;
+	}
+	var wjtshopslV = new Vue({
+			el:"#wjtshoplel",
+			data:{
+				stores:[]
+			}
+		});
+	var ThisPage = {
+		run:function () {
+			ThisPage.init();
+		},
+		init:function () {
+			ThisPage.ready();
+			ThisPage.bind();
+		},
+		bind:function(){
+			$('.wjtfeoirsers').on('click', function(event) {
+        event.preventDefault();
+        page=parseInt(page)-1;
+        ThisPage.renderShopList();
+        return false;
+      });
+      $('.wjtskeorie').on('click', function(event) {
+        event.preventDefault();
+        page=parseInt(page)+1;
+        ThisPage.renderShopList();
+        return false;
+      });
+	      $("#wjtdpafeae").on('click', 'a.ui-paging-item,a.ui-paging-next,a.ui-paging-prev', function () {
+	          $('.ui-paging-current').removeClass('ui-paging-current');
+	          $(this).addClass('ui-paging-current');
+	          var $this = $(this);
+	          page = $this.attr('href');
+	          ThisPage.renderShopList();
+	          $('html,body').animate({scrollTop: '170%'}, 1000);
+	          return false
+	      })
+	      .on('click', '.ui-paging-goto', function () {
+	          var $this = $(this)
+	          var $input = $this.prev('.ui-paging-which').find('input')
+	          var value = $input.val()
+	          // 必须填入数字
+	          value = parseInt(value, 10)
+	          if (isNaN(value)) {
+	              value = 1
+	          }
+	          if (value>pages){
+	            value=pages;
+	          }
+						page = value;
+	          ThisPage.renderShopList();
+	          $('html,body').animate({scrollTop: '170%'}, 1000);
+	          return false;
+	      });
+		},
+		ready:function(){
+			setTimeout(function() {
+				ThisPage.renderSearchKey();
+			}, 0);
+			setTimeout(function(){
+				ThisPage.renderShopList();
+			},0);
+		},
+		renderShopList:function(){
+			var geturl = '/store/list/_api/shops?page='+page+'&query='+_query+'&order='+order;
+			var seled=wjtlkfoiweirV.getSlectKeys();
+			for (var i = 0; i < seled.length; i++) {
+				geturl = geturl+"&keys="+seled[i];
+			}
+			$.ajax({
+				url:geturl,
+				type:'post',
+				cache:'false',
+				success:function (data) {
+						if (data.status){
+							wjtshopslV.stores=data.data.stores;
+							wjtlkfoiweirV.totleRow = data.data.paging.totleRow;
+							ThisPage.renderPaging(data.data.paging.curPage,data.data.paging.pages);
+						}
+				},
+				error:function () {
+					console.error('获取推荐店铺出错');
+				}
+			});
+		},
+		renderSearchKey:function () {
+			var geturl = '/store/list/_api/searchkey?query='+_query;
+			var seled=wjtlkfoiweirV.getSlectKeys();
+			for (var i = 0; i < seled.length; i++) {
+				geturl = geturl+"&exclude="+seled[i];
+			}
+			var selede=wjtlkfoiweirV.getExcludeKeys();
+			for (var i = 0; i < selede.length; i++) {
+				geturl = geturl+"&exclude="+selede[i];
+			}
+			$.ajax({
+				url:geturl,
+				type:'post',
+				cache:'false',
+				success:function (data) {
+					if (data.status){
+						wjtsearchkeyV.skeys = data.data;
+					}
+				},
+				error:function () {
+					console.error('获取搜索条件出错');
+				}
+			});
+		},
+		reloadSearchKeyAndList:function() {
+			page=1;
+      ThisPage.renderShopList();
+      ThisPage.renderSearchKey();
+		},
+    renderPaging:function(_page,_totlepage) {
+      var paginghtml = Paging.render({
+          currentPage: _page,
+          pageCount: _totlepage,
+          link:''
+      });
+      $("#wjtdpafeae").empty();
+      $("#wjtdpafeae").html(paginghtml);
+			$(".wjtjiweoruowe").empty();
+      $(".wjtjiweoruowe").html(_page);
+			$(".wjtjiweoruowes").empty();
+			$(".wjtjiweoruowes").html(_totlepage);
+    }
+	};
+		ThisPage.run();
+})(jQuery);

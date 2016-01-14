@@ -1,0 +1,12 @@
+var list=$('#uploadlist');
+$('.wjtserwseroi').on('click', function(event) {
+  event.preventDefault();
+  $('#uploadlist').show();
+  $('body').append(list);
+  return false;
+});
+$('#close').on('click', function(event) {
+  event.preventDefault();
+  $('#uploadlist').remove();
+  return false;
+});

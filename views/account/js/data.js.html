@@ -1,0 +1,109 @@
+(function(){
+  var Tpage = {
+    areas:JSON.parse('<%=#areas%>'),
+    province:JSON.parse('<%=#province%>'),
+  }
+
+  var wjtdomicileV = new Vue({
+    el:'#wjtdomicile',
+    data:{
+      provinces:[],
+      cities:[],
+    },
+    methods:{
+      render:function(){
+        this.renderProvince();
+        this.renderCity();
+      },
+      onSelectPrivonce:function(event){
+        var $se = $(event.target);
+        this.provinces =Tpage.province;
+      },
+      onSelectCity:function(event){
+        if (null==$('select[name="domicileProvince"]').val()){
+          alert('请先选择城市');
+        }else {
+          this.cities=Tpage.areas[$('select[name="domicileProvince"]').val()];
+        }
+      },
+      renderProvince:function(){
+        if (null!=this.cpro&&undefined!=this.cpro&&this.cpro!=''){
+          for (var i = 0; i < Tpage.areas['1'].length; i++) {
+            if (Tpage.areas['1'][i].code===this.cpro){
+                this.provinces=new Array();
+              this.provinces[0]=Tpage.areas['1'][i];
+            }
+          }
+        }
+      },
+      renderCity:function() {
+        if (null!=this.cpro&&undefined!=this.cpro&&this.cpro!=''&&null!=this.ccty&&undefined!=this.ccty&&this.ccty!=''){
+          for (var i = 0; i < Tpage.areas[this.cpro].length; i++) {
+            if (Tpage.areas[this.cpro][i].code===this.ccty){
+              this.cities=new Array();
+            this.cities[0]=Tpage.areas[this.cpro][i];
+            }
+          }
+        }
+      }
+    },
+  });
+  wjtdomicileV.render();
+  var wjtdomihomeV = new Vue({
+    el:'#wjtdomihome',
+    data:{
+      provinces:[],
+      cities:[],
+    },
+    methods:{
+      render:function(){
+        this.renderProvince();
+        this.renderCity();
+      },
+      renderProvince:function(){
+        if (null!=this.cpro&&undefined!=this.cpro&&this.cpro!=''){
+          for (var i = 0; i < Tpage.areas['1'].length; i++) {
+            if (Tpage.areas['1'][i].code===this.cpro){
+                this.provinces=new Array();
+              this.provinces[0]=Tpage.areas['1'][i];
+            }
+          }
+        }
+      },
+      renderCity:function() {
+        if (null!=this.cpro&&undefined!=this.cpro&&this.cpro!=''&&null!=this.ccty&&undefined!=this.ccty&&this.ccty!=''){
+          for (var i = 0; i < Tpage.areas[this.cpro].length; i++) {
+            if (Tpage.areas[this.cpro][i].code===this.ccty){
+              this.cities=new Array();
+            this.cities[0]=Tpage.areas[this.cpro][i];
+            }
+          }
+        }
+      },
+      onSelectPrivonce:function(event){
+        var $se = $(event.target);
+        this.provinces =Tpage.province;
+      },
+      onSelectCity:function(event){
+        if (null==$('select[name="hometownProvince"]').val()){
+          alert('请先选择城市');
+        }else {
+          this.cities=Tpage.areas[$('select[name="hometownProvince"]').val()];
+        }
+      },
+    },
+  });
+  wjtdomihomeV.render();
+  $('#wjtsubmit').on('click', function(e) {
+    e.preventDefault(); // prevent native submit
+    $("#wjtform").ajaxSubmit({
+      success:function(data){
+        if (data.status){
+          alert("更新成功");
+          window.location.reload(true);
+        }
+      },
+    })
+    return false;
+  });
+})();

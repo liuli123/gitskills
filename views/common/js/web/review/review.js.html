@@ -1,0 +1,81 @@
+(function($,undefined){
+  var _page=1;
+  var _totlepage=0;
+  var wjtreviewlist = new Vue({
+    el: '#wjtreviewlist',
+    data: {
+      reviews: [
+      ]
+    }
+  });
+  $(document).ready(function($) {
+    var totalPage = 0;
+    var $reviewPagenationDiv = $('._review_pagenation');
+    var ThisPage= {
+      run:function () {
+        ThisPage.ready();
+      },
+      ready:function () {
+        ThisPage.getReviewList();
+        ThisPage.bind();
+      },bind:function () {
+        $("#wjtsfewoi").on('click', 'a.ui-paging-item,a.ui-paging-next,a.ui-paging-prev', function () {
+            $('.ui-paging-current').removeClass('ui-paging-current');
+            $(this).addClass('ui-paging-current');
+            var $this = $(this);
+            _page = $this.attr('href');
+            ThisPage.getReviewList(_page);
+            $('html,body').animate({scrollTop: '158%'}, 1000);
+            return false
+        })
+        .on('click', '.ui-paging-goto', function () {
+            var $this = $(this)
+            var $input = $this.prev('.ui-paging-which').find('input')
+            var value = $input.val()
+            // 必须填入数字
+            value = parseInt(value, 10)
+            if (isNaN(value)) {
+                value = 1
+            }
+            if (value>_totlepage){
+              value=_totlepage;
+            }
+            ThisPage.getReviewList(value);
+            $('html,body').animate({scrollTop: '158%'}, 1000);
+            return false;
+        })
+      },
+      getReviewList:function (page) {
+        page = page | 1;
+        $.ajax({
+          url: '/review/_api/list',
+          type: 'GET',
+          dataType: 'json',
+          data: {page: page}
+        })
+        .done(function(data) {
+          if (data.status){
+            wjtreviewlist.reviews = data.data.posts;
+            _page=data.data.paging.curPage;
+            _totlepage=data.data.paging.pages;
+            ThisPage.renderPaging(_page,_totlepage);
+          }
+        })
+        .fail(function() {
+          console.log("查询评测列表错误");
+        });
+
+      },
+      renderPaging:function(_page,_totlepage) {
+        var paginghtml = Paging.render({
+            currentPage: _page,
+            pageCount: _totlepage,
+            link:''
+        });
+        $("#wjtsfewoi").empty();
+        $("#wjtsfewoi").html(paginghtml);
+      }
+    };
+    ThisPage.run();
+  });
+})(jQuery);

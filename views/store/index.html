@@ -1,0 +1,91 @@
+<%include('../common/html/head')%>
+<title>店铺</title>
+<style media="screen">
+  <%include('./css/base.css')%>
+</style>
+</head>
+<body>
+  <%include('../common/header')%>
+  <%include('../common/navgation')%>
+  <div class="contaiter">
+      <div class="leftContent fn-left">
+          <div class="crumbs-nav" id="wjtlkfoiweir">
+ <!--             <span class="filterBtn fn-right">收起筛选<i></i></span>-->
+              全部店铺>销售品牌：NIKE <i class="blue1">></i>
+              <span class="selectBtn" data-type="{{it.type}}" data-exclude="{{it.exclude}}" data-selet="{{it.selet}}" v-for="it in slectedList">{{it.name}}<i class="closed" data-str="{{it.feiose}}"  v-on:click="delSlect" data-type="{{it.type}}" ></i></span>
+              {{totleRow}} 家
+          </div>
+            <div class="selector" id="wjtsearchkey">
+                  <div class="s-brand pr" v-for="k in skeys">
+                      <span class="s-brandTitle">{{k.name}}</span>
+                      <div class="s-brandList"  style="width:800px; padding-left:100px;">
+                          <ul>
+                              <li v-for="ks in k.values"  v-on:click="oneKeyBtn" data-exclude="{{k.id}}" data-selet="{{ks.value}}" data-name="{{ks.name}}" data-fewsd="{{k.name}}" ><input style="display:none;" type="checkbox" class="wjtfwerwer wjtdiofwjeoir{{k.name}}" value="{{ks.value}}"  />{{ks.name}}</li>
+                          </ul>
+                          <div style="display:none;" id="wjtdofiowuehr{{k.name}}"  class="btnArea wjtfdoieweherw"><a href="javascript:;" v-on:click="moreKeyBtn" data-name="{{k.name}}" class="btnSubmit">确定</a> <a href="javascript:;" onClick="$('#wjtdofiowuehr{{k.name}}').slideUp();$('.wjtdiofwjeoir{{k.name}}').fadeOut();" class="btnCancel" >取消</a></div>
+                      </div>
+
+                      <a href="javascript:;" class="moreBtn pa" onClick="if($('#wjtdofiowuehr{{k.name}}').is(':hidden')){$('.wjtfdoieweherw').slideUp();$('#wjtdofiowuehr{{k.name}}').slideDown();$('.wjtfwerwer').fadeOut();$('.wjtdiofwjeoir{{k.name}}').fadeIn();}">多选</a>
+                  </div>
+          </div>
+          <div class="filter">
+              <div class="fn-right">
+<!--                  <a href="#" class="F-display "></a>
+                  <a href="#" class="F-tabular F-tabular-on"></a>-->
+                  <div class="F-page blue">
+                      <a href="javascript:;" class="F-pageLeft wjtfeoirsers"></a>
+                      <span class="orange F-page-amount wjtjiweoruowe">1</span>/<span class="wjtjiweoruowes">100</span>
+                      <a href="javascript:;" class="F-pageRight wjtskeorie"></a>
+                  </div>
+              </div>
+              <div class="fn-left">
+                <ul class="F-list-nav" id="wjtorderlist">
+                    <a href="javascript:;"><li class="current" data-order="sort:asc/name:asc" data-str="综合" v-on:click="orderChange">综合</li></a>
+                    <a href="javascript:;"><li data-order="size:desc" v-on:click="orderChange" data-str="规模">规模</li></a>
+                    <a href="javascript:;"><li data-order="praise_count:desc" data-str="人气"  v-on:click="orderChange">人气</li></a>
+                    <a href="javascript:;"><li data-order="comprehensive_score:desc" v-on:click="orderChange" data-str="评分">评分</li></a>
+                    <a href="javascript:;"><li data-order="comment_count:desc" v-on:click="orderChange" data-str="点评数">点评数</li></a>
+                </ul>
+              </div>
+          </div>
+          <div class="E-shopList fiveList" id="wjtshoplel">
+            <ul class="fp_shopul">
+                  <li class="fp_shopli" v-for="it in stores">
+                      <a target="_blank" href="/store/{{it.id}}"><img src='{{it.img+"?"}}' onerror='this.src="/images/default/store.jpg"'/></a>
+                      <h3>{{it.name}}</h3>
+                      <p>{{it.type}}</p>
+                  </li>
+              </ul>
+              <div class="clear"></div>
+              <div class="showpage" id="wjtdpafeae">
+              </div>
+          </div>
+      </div>
+      <div class="rightSidebar fn-left">
+          <div class="shopRecommend" >
+              <h2 class="S-title">店铺推荐</h2>
+              <ul>
+                  <%for (var i = 0; i < recommed.stores.length; i++) {%>
+                  <li>
+                      <a target="_blank" href="/store/<%=recommed.stores[i].id%>"><img src='<%=recommed.stores[i].img +"?"%>' onerror='this.src="/images/default/store.jpg"'></a>
+                      <h3><%=recommed.stores[i].name%></h3>
+                      <p><%=recommed.stores[i].type%></p>
+                  </li>
+                  <%}%>
+              </ul>
+          </div>
+      </div>
+    </div>
+  <%include('../common/footer-search')%>
+  <%include('../common/footer')%>
+  <%include('../common/base')%>
+  <script type="text/javascript">
+    <%include('./js/index.js')%>
+  </script>
+  <script type="text/javascript">
+    showLay2();
+    showLay12();
+	$('.F-list-nav a li').first().css("border-left","none")
+  </script>
+</body>
+</html>

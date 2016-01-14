@@ -1,0 +1,60 @@
+<%include('../../common/html/head')%>
+<title>我的评论</title>
+<style media="screen">
+	<%include('./css/comment.css')%>
+</style>
+</head>
+<body>
+	<%include('../../common/header')%>
+	<%include('../../common/navgation')%>
+<div class="auto">
+<div class="right-position"><a href="/account">用户中心</a> ><a href="javascript:;">我的评论</a></div>
+<div class="content2">
+		<%include('../../common/account/navgation')%>
+	<div class="contentbig fr" align="center" id="Right">
+		<div class="nav1" align="center" >
+			<ol class="clearfix">
+				<li class="nav11 fl"><a href="javascript:;">我的评论</a></li>
+				<li class="nav12 fl"><a href="/account/comment/reply">回复我的</a></li>
+			</ol>
+		</div>
+		<div class="cont-big3" align="left" >
+			<div class="cont-big301">
+			<form action="">
+				<input type="checkbox" name="checkbox" value="全部"/>全部
+				<input type="checkbox" name="checkbox" value="产品评论"/>产品评论
+				<input type="checkbox" name="checkbox" value="店铺评论"/>店铺评论
+				<input type="checkbox" name="checkbox" value="资讯评论"/>资讯评论
+			</form>
+			</div>
+			<ul class="cont-big302" id="wjtlist">
+				<li v-for="obj in list">
+					<h2 class="cont-title"><a href="/{{obj.type}}/{{obj.objId}}" target="_blank">{{obj.title}}</a></h2>
+					<div class="cont-big302-pic">
+					<img src="{{obj.image+'?'}}" data-type="{{obj.type}}" data-cid={{obj.cid}} onerror='var type = $(this).attr("data-type");if ("store"===type){this.src="/images/default/store.jpg"}else if("product"===type){this.src="/images/default/product"+$(this).attr("data-cid")+".jpg"}; ' alt="" height="111.4" />
+					</div>
+					<div class="cont-big302-right">
+					<div class="cont-big302-right1">{{obj.content}}
+					</div>
+					<div class="cont-big302-right2">
+					<!--<a href="javascript:;">点赞：<font>{{obj.pariseCount}}</font></a> | <a href="javascript:;">回复：<font>{{obj.commentCount}}</font></a>|<a href="javascript:;">编辑</a>|<a href="javascript:;">删除</a>-->
+					</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="pages" id="wjtlistpage"></div>
+
+</div>
+</div>
+</div>
+<%include('../../common/footer')%>
+<%include('../../common/base')%>
+<script type="text/javascript">
+	<%include('./js/comment.js')%>
+</script>
+<script type="text/javascript">$(function(){var h=$("#Left").height(),t=$("#Right").height();h>t?$("#Right").height(h):$("#Left").height(t)});</script>
+
+</body>
+</html>

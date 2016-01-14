@@ -1,0 +1,820 @@
+<%include('../common/html/head')%>
+<title>商品详情-北京北京</title>
+<style type="text/css">
+<%include('../common/base.css')%>
+<%include('../common/css/good.css')%>
+	.mod_select{font-familY:Arial, Helvetica, sans-serif;margin-top:1px;}
+	.mod_select ul{margin:0;padding:0;}
+	.mod_select ul li{list-style-type:none;float:left;height:24px;}
+	.select_label{color:#982F4D;float:left;line-height:24px;padding-right:10px;font-size:12px;font-weight:700;}
+	.select_box{float:left;position:relative;cursor:pointer;width:105px;background:url(images/select_bg.jpg) repeat-x;font-size:12px; color:#666; padding-left:68px;}
+	.selet_open{float:left;display:inline-block;width:30px;height:24px;background:url(images/select_up.jpg) no-repeat center center;}
+	.select_txt{float:left;display:inline-block;padding-left:10px;width:65px;line-height:24px;height:24px;cursor:text;overflow:hidden;}
+	.option{width:105px;;border:solid 1px #EDE7D6;position:absolute;top:24px;left:68px;z-index:2;overflow:hidden;display:none;}
+	.option a{display:block;height:26px;line-height:26px;text-align:left;padding:0 10px;width:100%;background:#fff;}
+</style>
+	<script>
+			<%include('../common/js/web/good/menu2.js')%>
+	</script>
+  <script src="js/jquery.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  	$(document).ready(function(){
+  			$(".select_box").click(function(event){
+  				event.stopPropagation();
+  				$(this).find(".option").toggle();
+  				$(this).parent().siblings().find(".option").hide();
+  			});
+  			$(document).click(function(event){
+  				var eo=$(event.target);
+  				if($(".select_box").is(":visible") && eo.attr("class")!="option" && !eo.parent(".option").length)
+  				$('.option').hide();
+  			});
+  			/*赋值给文本框*/
+  			$(".option a").click(function(){
+  				var value=$(this).text();
+  				$(this).parent().siblings(".select_txt").text(value);
+  				$("#select_value").val(value)
+  			 })
+  		})
+  </script>
+
+
+  </head>
+  <body>
+  <!-- 导航-->
+	<%include('../common/header')%>
+	<%include('../common/navgation')%>
+  <!-- 悬浮导航结束-->
+  <div class="auto shop-cont">
+  <!--	<div class="shop-cont1">当前位置：<a href="#">首页</a> > <a href="#">我的店铺</a>  >  正文</div>
+  -->	<div class="shop-zuo">
+  	<div class="shop-cont-left">
+  	<!-- shop-left1 -->
+  		<div class="shop-left1">
+  			<div class="shop-left101">
+  				<div class="lanrenzhijia">
+  <!-- 大图begin -->
+  <div id="preview" class="spec-preview">
+  	<span class="jqzoom"><img jqimg="images/shop_pic1.jpg" src="images/shop_pic1.jpg" /></span>
+  </div>
+  <!-- 大图end -->
+  <!-- 缩略图begin -->
+  <div class="spec-scroll">
+    <div class="items">
+      <ul>
+       	  <li><img bimg="images/shop_pic1.jpg" src="images/shop_pic1.jpg" onmousemove="preview(this);"></li>
+  		  <li><img bimg="images/shop_pic2.jpg" src="images/shop_pic2.jpg" onmousemove="preview(this);"></li>
+  		  <li><img bimg="images/shop_pic1.jpg" src="images/shop_pic1.jpg" onmousemove="preview(this);"></li>
+  		  <li><img bimg="images/shop_pic2.jpg" src="images/shop_pic2.jpg" onmousemove="preview(this);"></li>
+  		  <li><img bimg="images/shop_pic1.jpg" src="images/shop_pic1.jpg" onmousemove="preview(this);"></li>
+  		  <li><img bimg="images/shop_pic2.jpg" src="images/shop_pic2.jpg" onmousemove="preview(this);"></li>
+      </ul>
+    </div>
+  </div>
+  <!-- 缩略图end -->
+  <script src="style/jquery.min.js"></script>
+  <script>
+			<%include('../common/js/web/good/jqzoom.js')%>
+	</script>
+  <script>
+			<%include('../common/js/web/good/shop.js')%>
+	</script>
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/Popt.js">
+			<%include('../common/js/web/good/Popt.js')%>
+	</script>
+  <script>
+			<%include('../common/js/web/good/cityJson.js')%>
+	</script>
+  <script>
+			<%include('../common/js/web/good/citySet.js')%>
+	</script>
+  </div>
+  			</div>
+  			<div class="shop-left02">
+  			<a href="#"><img src="images/shop_ico1.jpg" alt="" />收藏商品(人气)</a> <font>|</font>
+  			<a href="#"><img src="images/shop_ico2.jpg" alt="" />分享</a>
+  			</div>
+  		</div>
+  	<!-- shop-left2 -->
+  		<div class="shop-left2">
+  			<h1>LEBRON XIII EP</h1>
+  			<div class="shop-canshu">
+  				<label for="">货号：</label>
+  				<font style="font-size:16px;">807220-500</font>
+  			</div>
+  			<div class="shop-canshu">
+  				<label for="">价牌：</label>
+  				<b style="font-size:14px;">￥1599</b>
+  			</div>
+  			<div class="shop-canshu">
+  				<label for="">价牌：</label>
+  				<b style="font-size:28px;color:#ec7d6c;">￥1599</b>
+  			</div>
+  			<div class="shop-canshu">
+  				<label for="">鞋码：</label>
+  				<div class="shop-xiema">
+  					<input type="button" value="US9/250mm" class="selected"/><input type="button" value="40.5"/>
+  					<input type="button" value="41"/><input type="button" value="42"/><input type="button" value="42.5"/>
+  					<input type="button" value="43"/><input type="button" value="44"/>
+  					<input type="button" value="44.5"/><input type="button" value="45"/>
+  					<input type="button" value="45.5"/><input type="button" value="46"/>
+  					<input type="button" value="47.5"/>
+  				</div>
+  			</div>
+  			<div class="shop-canshu">
+  				<!--<label for="">颜色分类：</label>
+  				<div class="shop-yanse">
+  					<input type="button" class="yanse1"/>
+  					<input type="button" class="yanse2"/>
+  					<input type="button" class="yanse3"/>
+  					<input type="button" class="yanse4" />
+  				</div>-->
+  			</div>
+  			<div class="shop-canshu">
+  				<label for="">数量：</label>
+  				 <div class="i_box"><a href="javascript:;" class="J_minus">-</a><input type="text" value="0" class="J_input" /><a href="javascript:;" class="J_add">+</a></div>
+  			</div>
+  			<div class="shop-canshu" style="350px;">
+  				<label for="" class="fl">配送至：</label>
+  				 <span class="fl">北京&nbsp;&nbsp;至&nbsp;&nbsp;</span><input type="text" id="city" value="点击地区选择" style="height:26px;width:250px;line-height:28px;border:0;text-indent:15px;color:#666;float:left;" />
+  		<a class="selet_open" id="selet_open" style="padding-right:20px;"><b></b></a><br/>
+  <div class="mod_select" style="padding-left:10px">
+  	<ul>
+      	<li>
+              <div class="select_box">
+              	<span class="select_txt">顺丰航空寄付</span><a class="selet_open"><b></b></a>
+              	<div class="option">
+                  	<a>1顺丰航空寄付</a>
+                      <a>2顺丰航空寄付</a>
+                      <a>顺丰航空寄付</a>
+  					<a>顺丰航空寄付</a>
+  					<a>顺丰航空寄付</a>
+                  </div>
+              </div>
+          </li>
+      </ul>
+  </div>
+
+
+  				 <b style="font-size:14px;margin-left:6px;">￥23</b>
+  			</div>
+  			<div class="shop-canshu shop-cart">
+  				<label for="">&nbsp;</label>
+  				<input type="submit" value="立即购买" class="on"/>
+  				<input type="submit" value="加入购物车"/>
+  			</div>
+  			<!--<div class="shop-canshu">
+  				<label for="">承诺：</label>
+
+  			</div>
+  			<div class="shop-canshu">
+  				<label for="">支付：</label>
+  			</div>-->
+  		</div>
+
+  	</div>
+	<script type="text/javascript">
+	  $("#city").click(function (e) {
+	  	SelCity(this,e);
+	  });
+		$('#selet_open').click(function(e){
+			SelCity('#city',e)
+		})
+  </script>
+  	<!-- shop-left3 -->
+  <div class="shop-left3">
+  <div class="slideTxtBox">
+    <div class="hd">
+      <ul>
+        <li style="border-left:0px;">商品详情</li>
+        <li>累计评论</li>
+        <li>成交纪录</li>
+      </ul>
+    </div>
+    <div class="bd">
+      <ul>
+  	<table width="100%" cellpadding="0" cellspacing="0">
+  		<tr>
+  			<td>品名：    <b>LEBRON XIII EP</b></td><td>货号：    807220-500</td><td>俗称：    勒布朗13 /  LBJ13  / 詹姆斯十三代  / 詹13 </td>
+  		</tr>
+  		<tr>
+  			<td>牌价：    <b style="color:#ec7d6c;font-size:24px;">￥1599</b></td><td>上市日期：2015/10/1 | 2015Q4</td><td>系列：    篮球<span style="padding-left:50px;"></span>性别：    男</td>
+  		</tr>
+  	</table>
+
+      </ul>
+
+  	 <ul class="pingjia-tabs">
+  		<li style="border-top:0;">
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td>
+  				<td width="480" style="padding:0 16px;">
+  				用户名XXXXX<br/>这双鞋想要很久了。商家不错，发货快，包装好，以后还会光顾。商家不错，发货快，包装好，以后还会光顾
+  				</td>
+  				<td width="190">付款时间：2015年12月15日 17:52</td>
+  				<td width="85" class="center">尺码：43</td>
+  			</tr>
+  		</table>
+  		</li>
+
+  		<li>
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td>
+  				<td width="480" style="padding:0 16px;">
+  				用户名XXXXX<br/>这双鞋想要很久了。商家不错，发货快，包装好，以后还会光顾。商家不错，发货快，包装好，以后还会光顾
+  				</td>
+  				<td width="190">付款时间：2015年12月15日 17:52</td>
+  				<td width="85" class="center">尺码：43</td>
+  			</tr>
+  		</table>
+  		</li>
+
+
+  		<li>
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td>
+  				<td width="480" style="padding:0 16px;">
+  				用户名XXXXX<br/>这双鞋想要很久了。商家不错，发货快，包装好，以后还会光顾。商家不错，发货快，包装好，以后还会光顾
+  				</td>
+  				<td width="190">付款时间：2015年12月15日 17:52</td>
+  				<td width="85" class="center">尺码：43</td>
+  			</tr>
+  		</table>
+  		</li>
+
+
+  		<li>
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td>
+  				<td width="480" style="padding:0 16px;">
+  				用户名XXXXX<br/>这双鞋想要很久了。商家不错，发货快，包装好，以后还会光顾。商家不错，发货快，包装好，以后还会光顾
+  				</td>
+  				<td width="190">付款时间：2015年12月15日 17:52</td>
+  				<td width="85" class="center">尺码：43</td>
+  			</tr>
+  		</table>
+  		</li>
+      </ul>
+
+
+      <ul class="jilu-tabs" >
+  		<li style="border-top:0;">
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td><td>买家：用户名XXXXXX</td><td>尺码：43</td><td>数量：1</td><td>价格：1955.00元</td><td width="190">付款时间：2015年12月15日 17:52</td>
+  			</tr>
+  		</table>
+  		</li>
+
+  		<li>
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td><td>买家：用户名XXXXXX</td><td>尺码：43</td><td>数量：1</td><td>价格：1955.00元</td><td width="190">付款时间：2015年12月15日 17:52</td>
+  			</tr>
+  		</table>
+  		</li>
+
+
+  		<li>
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td><td>买家：用户名XXXXXX</td><td>尺码：43</td><td>数量：1</td><td>价格：1955.00元</td><td width="190">付款时间：2015年12月15日 17:52</td>
+  			</tr>
+  		</table>
+  		</li>
+
+
+  		<li>
+  		<table width="100%" cellpadding="0" cellspacing="0">
+  			<tr>
+  				<td width="85"><img src="" width="70" height="70" alt="" /></td><td>买家：用户名XXXXXX</td><td>尺码：43</td><td>数量：1</td><td>价格：1955.00元</td><td width="190">付款时间：2015年12月15日 17:52</td>
+  			</tr>
+  		</table>
+  		</li>
+      </ul>
+
+    </div>
+  </div>
+
+  		</div>
+  	<!-- shop-left4 -->
+  <div class="shop-left4">
+  	<div class="shop-left401">看了该商品的人还看了</div>
+  	<div class="shop-left402">
+  		<div class="mr_frbox">
+  		<img class="mr_frBtnL prev" src="images/mfrL.jpg" width="10" height="14" />
+  		<div class="mr_frUl">
+  			<ul>
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+
+  				</div>
+  				</li>
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+
+  				</div>
+  				</li>
+  			</ul>
+  		</div>
+  		<img class="mr_frBtnR next" src="images/mfrR.jpg" width="10" height="14" />
+  	</div>
+  	</div>
+  </div>
+
+
+  	<!-- shop-left4 -->
+  <div class="shop-left4">
+  	<div class="shop-left401">买了该商品的人还买了</div>
+  	<div class="shop-left402">
+  		<div class="mr_frbox">
+  		<img class="mr_frBtnL prev" src="images/mfrL.jpg" width="10" height="14" />
+  		<div class="mr_frUl">
+  			<ul>
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+
+  				</div>
+  				</li>
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				</li>
+
+
+  				<li>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+  				</div>
+  				<div class="shop-scroll">
+  				<a href="#" target="_blank"><img src="images/cart1.jpg" width="138" height="138" /></a>
+  				<div class="shop-scroll2">
+  					<p><a href="#">LEBRON XIII EP</a></p>
+  					<p>807220-500</p>
+  					<p>￥1599</p>
+  				</div>
+
+  				</div>
+  				</li>
+  			</ul>
+  		</div>
+  		<img class="mr_frBtnR next" src="images/mfrR.jpg" width="10" height="14" />
+  	</div>
+  	</div>
+  </div>
+
+  	</div>
+
+  	<!-- shop-right -->
+  	<div class="shop-cont-right">
+  		<div class="shop-cont-right1">
+  		<h2 class="shop-right1-title">北京崇文区新世界一<br/>
+  期耐克大型综合店</h2>
+  <ul class="shop-right101">
+  <li>★★★★★                 861条评论 </li>
+  <li>交通：9.5    |   环境：9.5</li>
+  <li>服务：9.5       |   店员颜值：9.5 </li>
+  <li>地址：  北京朝阳区朝北大悦城 </li>
+  <li>电话：  8610-12345678</li>
+  <li>微信：  8610-12345678</li>
+  </ul>
+  <div class="shop-right102">
+  <a href="#" style="float:left">进入店铺</a>
+  <a href="#" style="float:right">收藏店铺</a>
+  </div>
+  		</div>
+
+  		<!-- shop-right2 -->
+  		<div class="shop-right2"><a href="#">本店新品</a></div>
+  		<!-- shop-right3 -->
+  		<div class="shop-right3">
+  		<li>
+  		<a href="#"><img src="images/cart1.jpg" width="226" height="205" alt="" /></a>
+  		<div class="shop-scroll2">
+  		<p><a href="#">LEBRON XIII EP</a></p>
+  		<p>807220-500</p>
+  		<p>￥1599</p>
+  		</div>
+  		</li>
+
+
+  		<li>
+  		<a href="#"><img src="images/cart1.jpg" width="226" height="205" alt="" /></a>
+  		<div class="shop-scroll2">
+  		<p><a href="#">LEBRON XIII EP</a></p>
+  		<p>807220-500</p>
+  		<p>￥1599</p>
+  		</div>
+  		</li>
+
+
+
+  		<li>
+  		<a href="#"><img src="images/cart1.jpg" width="226" height="205" alt="" /></a>
+  		<div class="shop-scroll2">
+  		<p><a href="#">LEBRON XIII EP</a></p>
+  		<p>807220-500</p>
+  		<p>￥1599</p>
+  		</div>
+  		</li>
+
+  		<li>
+  		<a href="#"><img src="images/cart1.jpg" width="226" height="205" alt="" /></a>
+  		<div class="shop-scroll2">
+  		<p><a href="#">LEBRON XIII EP</a></p>
+  		<p>807220-500</p>
+  		<p>￥1599</p>
+  		</div>
+  		</li>
+  		</div>
+  	</div>
+  <script>
+			<%include('../common/js/web/good/superside.js')%>
+	</script>
+  <script>
+  	jQuery(".slideTxtBox").slide({trigger:"click"});
+  </script>
+
+  <script type="text/javascript">
+	$(".mr_frbox").slide({
+		titCell:"",
+		mainCell:".mr_frUl ul",
+		autoPage:true,
+		effect:"leftLoop",
+		autoPlay:false,
+		vis:6,
+		scroll:6
+	});
+  </script>
+<script>
+  $.fn.iVaryVal=function(iSet,CallBack){
+  	/*
+  	 * Minus:点击元素--减小
+  	 * Add:点击元素--增加
+  	 * Input:表单元素
+  	 * Min:表单的最小值，非负整数
+  	 * Max:表单的最大值，正整数
+  	 */
+  	iSet=$.extend({Minus:$('.J_minus'),Add:$('.J_add'),Input:$('.J_input'),Min:0,Max:20},iSet);
+  	var C=null,O=null;
+  	//插件返回值
+  	var $CB={};
+  	//增加
+  	iSet.Add.each(function(i){
+  		$(this).click(function(){
+  			O=parseInt(iSet.Input.eq(i).val());
+  			(O+1<=iSet.Max) || (iSet.Max==null) ? iSet.Input.eq(i).val(O+1) : iSet.Input.eq(i).val(iSet.Max);
+  			//输出当前改变后的值
+  			$CB.val=iSet.Input.eq(i).val();
+  			$CB.index=i;
+  			//回调函数
+  			if (typeof CallBack == 'function') {
+                  CallBack($CB.val,$CB.index);
+              }
+  		});
+  	});
+  	//减少
+  	iSet.Minus.each(function(i){
+  		$(this).click(function(){
+  			O=parseInt(iSet.Input.eq(i).val());
+  			O-1<iSet.Min ? iSet.Input.eq(i).val(iSet.Min) : iSet.Input.eq(i).val(O-1);
+  			$CB.val=iSet.Input.eq(i).val();
+  			$CB.index=i;
+  			//回调函数
+  			if (typeof CallBack == 'function') {
+  				CallBack($CB.val,$CB.index);
+  		  	}
+  		});
+  	});
+  	//手动
+  	iSet.Input.bind({
+  		'click':function(){
+  			O=parseInt($(this).val());
+  			$(this).select();
+  		},
+  		'keyup':function(e){
+  			if($(this).val()!=''){
+  				C=parseInt($(this).val());
+  				//非负整数判断
+  				if(/^[1-9]\d*|0$/.test(C)){
+  					$(this).val(C);
+  					O=C;
+  				}else{
+  					$(this).val(O);
+  				}
+  			}
+  			//键盘控制：上右--加，下左--减
+  			if(e.keyCode==38 || e.keyCode==39){
+  				iSet.Add.eq(iSet.Input.index(this)).click();
+  			}
+  			if(e.keyCode==37 || e.keyCode==40){
+  				iSet.Minus.eq(iSet.Input.index(this)).click();
+  			}
+  			//输出当前改变后的值
+  			$CB.val=$(this).val();
+  			$CB.index=iSet.Input.index(this);
+  			//回调函数
+  			if (typeof CallBack == 'function') {
+                  CallBack($CB.val,$CB.index);
+              }
+  		},
+  		'blur':function(){
+  			$(this).trigger('keyup');
+  			if($(this).val()==''){
+  				$(this).val(O);
+  			}
+  			//判断输入值是否超出最大最小值
+  			if(iSet.Max){
+  				if(O>iSet.Max){
+  					$(this).val(iSet.Max);
+  				}
+  			}
+  			if(O<iSet.Min){
+  				$(this).val(iSet.Min);
+  			}
+  			//输出当前改变后的值
+  			$CB.val=$(this).val();
+  			$CB.index=iSet.Input.index(this);
+  			//回调函数
+  			if (typeof CallBack == 'function') {
+                  CallBack($CB.val,$CB.index);
+              }
+  		}
+  	});
+  }
+  //调用
+  $( function() {
+
+  	$('.i_box').iVaryVal({},function(value,index){
+  		$('.i_tips').html('你点击的表单索引是：'+index+'；改变后的表单值是：'+value);
+  	});
+
+  });
+  </script>
+
+  <div style="width:1000%;float:left;height:2px;border-top:1px solid #055d91;margin:60px 0px 20px 0;"></div>
+  <div id="header" >
+  	<div class="uinfo_wrap">
+
+  		<div class="inputsearch fl" style="margin-left:263px;margin-bottom:40px;">
+  			<div class="fl">
+  				<div id="menu">
+  					<div id="lay1" style=" position:absolute;z-index:1; visibility:visible">
+  						<ul>
+  							<li><a href="#" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产品&nbsp; <img src="images/arrow.png" width="9" height="6"/></a>
+  							<ul>
+  								<li class="top"><a href="javascript:void()" onclick="showLay2()"/>店铺</a></li>
+  								<li><a href="javascript:void()" onclick="showLay3()"/>资讯</a></li>
+  							</ul>
+  							</li>
+  						</ul>
+  					</div>
+  					<div id="lay2" style=" position:absolute;z-index:2; visibility:hidden;">
+  						<ul>
+  							<li><a href="#" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;店铺&nbsp; <img src="images/arrow.png" width="9" height="6"/></a>
+  							<ul>
+  								<li class="top"><a href="javascript:void()" onclick="showLay1()"/>产品</a></li>
+  								<li><a href="javascript:void()" onclick="showLay3()"/>资讯</a></li>
+  							</ul>
+  							</li>
+  						</ul>
+  					</div>
+  					<div id="lay3" style="position:absolute;z-index:3; visibility:hidden">
+  						<ul>
+  							<li><a href="#" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资讯&nbsp; <img src="images/arrow.png" width="9" height="6"/></a>
+  							<ul>
+  								<li class="top"><a href="javascript:void()" onclick="showLay1()"/>产品</a></li>
+  								<li><a href="javascript:void()" onclick="showLay2()"/>店铺</a></li>
+  							</ul>
+  							</li>
+  						</ul>
+  					</div>
+  				</div>
+  				<div class="fl">
+  					<input class="input1" name="q" type="text" value="">
+  				</div>
+  				<input class="search fr" type="submit" name="button" id="button" value="搜 索"/>
+  			</div>
+  		</div>
+
+
+  	</div>
+  </div>
+  </div>
+  <script>
+  <%include('../common/js/web/good/good.js')%>
+  </script>
+<%include('../common/footer')%>
+<%include('../common/base')%>
+</body>
+</html>

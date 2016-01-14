@@ -1,0 +1,251 @@
+(function($, undefined) {
+  var wjteditorV = new Vue({
+    el: '#wjtdfowie',
+    data: {
+      tmp: '',
+    },
+    computed: {
+      wordCount: function() {
+        if (undefined == this.text) {
+          return 0;
+        }
+        return this.text.length;
+      }
+    },
+    methods: {
+      toComment: function(event) {
+        commentV.toComment(event);
+      }
+    }
+  });
+  var commentVP = new Vue({
+    el: '#wjtdfae',
+    methods: {
+      toComment: function(event) {
+        commentV.toComment(event);
+      }
+    }
+  });
+  var commentV = new Vue({
+    el: '#wjtsdfweoisdh',
+    data: {
+      page: 1,
+      count: 0,
+      totlePage: 0,
+      list: []
+    },
+    methods: {
+      replyParent: function(event) {
+        $('.wjtdfweroiasndf').slideUp();
+        $('.wjtdfwoieryy' + $(event.target).attr('data-index')).slideDown();
+      },
+      replyChildren: function(event) {
+        var $this = $(event.target);
+        $('.wjtdfweroiasndf').slideUp();
+        $('.wjtdkfjoaie' + $this.attr('data-id')).slideDown();
+      },
+      toComment: function(event) {
+        var $this = $(event.target);
+        if ($($this.attr('data-inputid')).val().length <= 300) {
+          wjtcomment('store', $this.attr('data-proid'), $this.attr(
+              'data-commid'), $($this.attr('data-inputid')).val(),
+            function() {
+              FP_OBJ.Q_LOGIN(function() {
+                wjtcomment('store', $this.attr('data-proid'),
+                  $this.attr('data-commid'), $($this.attr(
+                    'data-inputid')).val(),
+                  function() {},
+                  function() {
+                    alert('发表成功');
+                    ThisPage.renderCommentList();
+                  },
+                  function(msg) {
+                    alert(msg)
+                  });
+              }, function(msg) {
+                alert("登录失败：" + msg);
+              }, function() {});
+            },
+            function() {
+              alert('发表成功');
+              ThisPage.renderCommentList();
+            },
+            function(msg) {
+              alert(msg)
+            });
+        } else {
+          alert("字数超出了300");
+        }
+      },
+      renderPaging: function() {
+        var paginghtml = Paging.render({
+          currentPage: this.page,
+          pageCount: this.totlePage,
+          link: ''
+        });
+        $("#wjtafaeiu").empty();
+        $("#wjtafaeiu").html(paginghtml);
+      }
+    }
+  });
+  var ThisPage = {
+    run: function() {
+      this.renderCommentList();
+      this.bind();
+    },
+    renderCommentList: function() {
+      $.ajax({
+          url: '/comment/store/<%=shop.id%>',
+          type: 'GET',
+          dataType: 'json',
+          cache: false,
+        })
+        .done(function(data) {
+          if (data.status) {
+            commentV.list = data.data.comments;
+            commentV.page = data.data.paging.curPage;
+            commentV.count = data.data.paging.totleRow;
+            commentV.totlePage = data.data.paging.totlePage;
+            commentV.renderPaging();
+          }
+        });
+
+    },
+    bind: function() {
+      $(".E-itemList ").find("li:nth-child(4n)").css("margin-right", "0");
+      $("#wjtafaeiu").on('click',
+          'a.ui-paging-item,a.ui-paging-next,a.ui-paging-prev',
+          function() {
+            $('.ui-paging-current').removeClass('ui-paging-current');
+            $(this).addClass('ui-paging-current');
+            var $this = $(this);
+            commentV.page = $this.attr('href');
+            ThisPage.renderCommentList();
+            return false
+          })
+        .on('click', '.ui-paging-goto', function() {
+          var $this = $(this);
+          var $input = $this.prev('.ui-paging-which').find('input')
+          var value = $input.val()
+            // 必须填入数字
+          value = parseInt(value, 10)
+          if (isNaN(value)) {
+            value = 1
+          }
+          if (value > pages) {
+            value = pages;
+          }
+          commentV.page = value;
+          ThisPage.renderCommentList();
+          $('html,body').animate({
+            scrollTop: '170%'
+          }, 1000);
+          return false;
+        });
+    },
+  };
+  ThisPage.run();
+  //  在卖的产品列表
+  var wjtprosV = new Vue({
+    el: "#wjtpros",
+    data: {
+      list: [],
+      page: 1,
+      count: 10,
+      totalRow: 0,
+      totalPage: 0,
+    },
+    methods: {
+      render: function() {
+        setTimeout(function() {
+          wjtprosV.renderList();
+        }, 0);
+      },
+      renderList: function() {
+        $(".wjererse").attr('data-fe', 'false');
+        $.ajax({
+          url: '/store/_api/stocks/<%=shop.id%>?page=' + this.page +
+            '&count=' + this.count,
+          type: 'GET',
+          dataType: 'json',
+          cache: false,
+          success: function(data) {
+            if (data.status) {
+              wjtprosV.page = data.data.paging.curPage;
+              wjtprosV.count = data.data.paging.count;
+              wjtprosV.totalRow = data.data.paging.totalRow;
+              if (parseInt(data.data.paging.totalRow) <= 0) {
+                $('.wjtjoiserh').remove();
+                return;
+              }
+              wjtprosV.totalPage = data.data.paging.totalPage;
+              wjtprosV.list = data.data.products;
+              wjtprosV.renderPaging();
+            }
+          }
+        });
+      },
+      renderPaging: function() {
+        var paginghtml = Paging.render({
+          currentPage: this.page,
+          pageCount: this.totalPage,
+          link: ''
+        });
+        $("#wjtpropaging").empty();
+        $("#wjtpropaging").html(paginghtml);
+        $('.wjtdkfower').empty();
+        $('.wjtdkfower').html(this.page);
+        $('.wjtdkfowers').empty();
+        $('.wjtdkfowers').html(this.totalPage);
+        $('.wjtwselkrw').one('click', function(event) {
+          wjtprosV.page -= 1;
+          if (wjtprosV.page <= 0 || wjtprosV.page ==
+            wjtprosV.totalPage) {
+            return;
+          } else if (wjtprosV.page >
+            wjtprosV.totalPage) {
+            wjtprosV.page = wjtprosV.totalPage;
+          }
+          wjtprosV.renderList();
+        });
+        $('.wjttwelir').one('click', function(event) {
+          wjtprosV.page += 1;
+          if (wjtprosV.page <= 0 || wjtprosV.page ==
+            wjtprosV.totalPage) {
+            return;
+          } else if (wjtprosV.page >
+            wjtprosV.totalPage) {
+            wjtprosV.page = wjtprosV.totalPage;
+          }
+          wjtprosV.renderList();
+        });
+        $("#wjtpropaging").one('click',
+          'a.ui-paging-item,a.ui-paging-next,a.ui-paging-prev',
+          function() {
+            $('.ui-paging-current').removeClass('ui-paging-current');
+            $(this).addClass('ui-paging-current');
+            var $this = $(this);
+            wjtprosV.page = $this.attr('href');
+            wjtprosV.renderList();
+            return false
+          }).on('click', '.ui-paging-goto', function() {
+          var $this = $(this)
+          var $input = $this.prev('.ui-paging-which').find('input')
+          var value = $input.val()
+            // 必须填入数字
+          value = parseInt(value, 10)
+          if (isNaN(value)) {
+            value = 1
+          }
+          if (value > wjtprosV.count) {
+            value = wjtprosV.count;
+          }
+          wjtprosV.page = value;
+          wjtprosV.renderList();
+          return false;
+        });
+      }
+    }
+  });
+  wjtprosV.render();
+})(jQuery);

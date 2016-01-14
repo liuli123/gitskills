@@ -1,0 +1,32 @@
+<script type="text/javascript">
+//发表评论方法
+// type: 'prodcut','store','review'
+var wjtcomment = function(type,id,parent,content,noLoginCallBack,succCallBack,errCallBack) {
+  if (content.length<2){
+    alert("字数不能少于2个字!");
+    return;
+  }
+  $.ajax({
+    url: '/comment/'+type+'/'+id,
+    type: 'POST',
+    dataType: 'json',
+    cache:false,
+    data: {'id': id,
+      'parent':parent,
+      'content':content,
+    }
+  })
+  .done(function(data) {
+    if (data.status){
+      succCallBack();
+    }else if (!data.isLogin){
+      noLoginCallBack();
+    } else {
+      errCallBack(data.msg);
+    }
+  })
+  .fail(function() {
+    console.log(FP_OBJ.SERVER_ERROR);
+  });
+};
+</script>
